@@ -8,7 +8,6 @@ namespace CleanCodeTestning
 		public int TotalGames { get; private set; }
 		int totalGuess;
 
-
 		public PlayerData(string name, int guesses)
 		{
 			this.Name = name;

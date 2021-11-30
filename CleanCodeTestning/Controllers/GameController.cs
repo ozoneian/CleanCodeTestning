@@ -9,16 +9,22 @@ namespace CleanCodeTestning.Controllers
     public class GameController
     {
         private readonly IUserInterface _ui;
+        private readonly IGameFactory _gameFactory;
+        private readonly IStoreData _storeData;
 
-        public GameController(IUserInterface ui)
+        public GameController(IUserInterface ui, IGameFactory gameFactory, IStoreData storeData)
         {
             _ui = ui;
+            _gameFactory = gameFactory;
+            _storeData = storeData;
         }
 
         public void Run()
         {
             PlayerSetUp();
-            SelectGame();
+            var game = SelectGame();
+
+            PlayGame(game);
             //too much responsibility?
             //game.play();
             //PlayGame();
@@ -26,14 +32,15 @@ namespace CleanCodeTestning.Controllers
             //ShowScoreBoard();
         }
 
-        private void PlayGame()
+        private void PlayGame(IGame game)
         {
-            throw new NotImplementedException();
+            game.Play();
         }
 
-        private void SelectGame()
+        private IGame SelectGame()
         {
-            throw new NotImplementedException();
+            var input = _ui.Input();
+            return _gameFactory.CreateGame(input);
         }
 
         private void PlayerSetUp()
