@@ -12,6 +12,10 @@ namespace CleanCodeTestning.Controllers
         private readonly IGameFactory _gameFactory;
         private readonly IStoreData _storeData;
 
+        private bool playing;
+        private IGame currentGame;
+        private string currentPlayer;
+
         public GameController(IUserInterface ui, IGameFactory gameFactory, IStoreData storeData)
         {
             _ui = ui;
@@ -22,30 +26,50 @@ namespace CleanCodeTestning.Controllers
         public void Run()
         {
             PlayerSetUp();
-            var game = SelectGame();
-
-            PlayGame(game);
-            //too much responsibility?
-            //game.play();
-            //PlayGame();
-            //SaveGame();
-            //ShowScoreBoard();
+            SelectGame();
+            PlayGame();
+            SaveGame();
+            ShowScoreBoard();
         }
 
-        private void PlayGame(IGame game)
+        private void PlayGame()
         {
-            game.Play();
+            _ui.Output(currentGame.GetInstructions());
+
+            while (playing)
+            {
+                _ui.Output(currentGame.Output());
+                currentGame.AddCounter();
+
+                if (currentGame.CheckInput(_ui.Input()))
+                {
+                    playing = false;
+                    _ui.Output("You won");
+                }
+            }
         }
 
-        private IGame SelectGame()
+        private void ShowScoreBoard()
         {
-            var input = _ui.Input();
-            return _gameFactory.CreateGame(input);
+            _storeData.GetAllPlayerData(currentGame.FilePath);
+        }
+
+        private void SaveGame()
+        {
+            _storeData.Save(currentGame.FilePath);
+        }
+
+        private void SelectGame()
+        {
+            playing = true;
+            _ui.Output("Select game: \nMooCow \nMastermind");
+            currentGame = _gameFactory.CreateGame(_ui.Input());
         }
 
         private void PlayerSetUp()
         {
-            throw new NotImplementedException();
+            _ui.Output($"Enter your username:");
+            currentPlayer = _ui.Input();
         }
     }
 }
