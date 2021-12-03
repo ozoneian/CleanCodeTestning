@@ -10,13 +10,14 @@ namespace CleanCodeTestning.Controllers
     {
         private readonly IUserInterface _ui;
         private readonly IGameFactory _gameFactory;
-        private readonly IStoreData _storeData;
+        private readonly IRepository _storeData;
 
         private bool playing;
         private IGame currentGame;
         private string currentPlayer;
+        PlayerData playerData;
 
-        public GameController(IUserInterface ui, IGameFactory gameFactory, IStoreData storeData)
+        public GameController(IUserInterface ui, IGameFactory gameFactory, IRepository storeData)
         {
             _ui = ui;
             _gameFactory = gameFactory;
@@ -39,7 +40,7 @@ namespace CleanCodeTestning.Controllers
             while (playing)
             {
                 _ui.Output(currentGame.Output());
-                currentGame.AddCounter();
+                currentGame.IncrementGuess();
 
                 if (currentGame.CheckInput(_ui.Input()))
                 {
@@ -51,18 +52,26 @@ namespace CleanCodeTestning.Controllers
 
         private void ShowScoreBoard()
         {
-            _storeData.GetAllPlayerData(currentGame.FilePath);
+            var results = _storeData.GetAllPlayerData(currentGame.FilePath);
+            
+            results.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
+            _ui.Output("Player   games average");
+            foreach (PlayerData p in results)
+            {
+                _ui.Output(string.Format("{0,-9}{1,5:D}{2,9:F2}", p.Name, p.TotalGames, p.Average()));
+            }
         }
 
         private void SaveGame()
         {
-            _storeData.Save(currentGame.FilePath);
+            playerData = new(currentPlayer, currentGame.GuessCount);
+            _storeData.Save(currentGame.FilePath, playerData);
         }
 
         private void SelectGame()
         {
             playing = true;
-            _ui.Output("Select game: \nMooCow \nMastermind");
+            _ui.Output("Select game: \nMooCow \nMastermind"); //TODO: 
             currentGame = _gameFactory.CreateGame(_ui.Input());
         }
 

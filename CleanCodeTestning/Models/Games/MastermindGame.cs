@@ -12,7 +12,9 @@ namespace CleanCodeTestning.Models
 
         int secretCode;
         string guessFeedback = "\nScore: ";
-        public string FilePath => "";
+        public string FilePath => "Mastermind.csv";
+
+        public int GuessCount => intGuesses;
 
         public MastermindGame()
         {
@@ -25,7 +27,7 @@ namespace CleanCodeTestning.Models
         bool[] guessAry = { false, false, false, false };
         bool[] answerAry = { false, false, false, false };
 
-        public void AddCounter()
+        public void IncrementGuess()
         {
             intGuesses++;
         }
@@ -219,33 +221,5 @@ namespace CleanCodeTestning.Models
             }
             return inPlaceCount;
         }
-
-        //private void Code()
-        //{
-
-        //    //Guesses Loop
-        //    while (intGuesses > 0)
-        //    {
-            
-            //    string strUserGuess = Console.ReadLine();
-
-
-            //   
-            //if (winState)
-            //{
-            //    Console.WriteLine("--------------------\n");
-            //    Console.WriteLine("\nYou solved it!");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("\nYou lose. :(\n");
-            //    Console.WriteLine("The code was " + intSecretCode);
-            //}
-            //if (EndGameDisplay())
-            //{
-            //    Console.Clear();
-            //    continue;
-            //}
-            //break;
-        }
     }
+}

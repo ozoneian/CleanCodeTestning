@@ -12,7 +12,7 @@ namespace CleanCodeTestning
 		{
 			IUserInterface userInterface = new ConsoleUI();
 			IGameFactory gameFactory = new BasicGameFactory();
-			IStoreData storeData = new CsvStore();
+			IRepository storeData = new CsvRepository();
 
 			GameController gameController = new GameController(userInterface, gameFactory, storeData);
 

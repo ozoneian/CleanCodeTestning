@@ -2,28 +2,28 @@
 
 namespace CleanCodeTestning
 {
-    class PlayerData
+    public class PlayerData
 	{
 		public string Name { get; private set; }
 		public int TotalGames { get; private set; }
-		int totalGuess;
+		public int TotalGuess;
 
 		public PlayerData(string name, int guesses)
 		{
 			this.Name = name;
 			TotalGames = 1;
-			totalGuess = guesses;
+			TotalGuess = guesses;
 		}
 
 		public void Update(int guesses)
 		{
-			totalGuess += guesses;
+			TotalGuess += guesses;
 			TotalGames++;
 		}
 
 		public double Average()
 		{
-			return (double)totalGuess / TotalGames;
+			return (double)TotalGuess / TotalGames;
 		}
 
 		public override bool Equals(Object p)
