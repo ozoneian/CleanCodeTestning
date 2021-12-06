@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanCodeTestning.Models.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,7 @@ namespace CleanCodeTestning.Controllers
 
         private void PlayGame()
         {
+            _ui.Clear();
             _ui.Output(currentGame.GetInstructions());
 
             while (playing)
@@ -71,8 +73,27 @@ namespace CleanCodeTestning.Controllers
         private void SelectGame()
         {
             playing = true;
-            _ui.Output("Select game: \nMooCow \nMastermind"); //TODO: 
-            currentGame = _gameFactory.CreateGame(_ui.Input());
+            _ui.Output($"Select game: \n{ _gameFactory.ToString()} \nEnter the name of the game: ");
+
+            CreateGame();
+        }
+
+        private void CreateGame()
+        {
+            bool isPicking = true;
+            do
+            {
+                try
+                {
+                    currentGame = _gameFactory.CreateGame(_ui.Input());
+                    isPicking = false;
+                }
+                catch (KeyNotFoundException)
+                {
+                    _ui.Output(Validator.GameNameInvalid);
+                }
+
+            } while (isPicking);
         }
 
         private void PlayerSetUp()

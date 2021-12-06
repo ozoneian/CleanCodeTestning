@@ -9,17 +9,19 @@ namespace CleanCodeTestning.Models
 {
     public class BasicGameFactory : IGameFactory
     {
+        Dictionary<string, IGame> games = new Dictionary<string, IGame>()
+        {
+            ["MooCow".ToLower()] = new MooCowGame(),
+            ["Mastermind".ToLower()] = new MastermindGame()
+        };
+
         public IGame CreateGame(string name)
         {
-            switch (name)
-            {
-                case "MooCow":
-                    return new MooCowGame();
-                case "Mastermind":
-                    return new MastermindGame();
-                default:
-                    return null;
-            }
+            return games[name.ToLower()];
+        }
+        public override string ToString()
+        {
+            return string.Join("\n", games.Keys);
         }
     }
 }
