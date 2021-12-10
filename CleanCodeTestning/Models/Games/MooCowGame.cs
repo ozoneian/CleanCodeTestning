@@ -1,5 +1,6 @@
 ﻿using CleanCodeTestning.Controllers;
 using System;
+using System.Collections.Generic;
 
 namespace CleanCodeTestning.Models
 {
@@ -16,7 +17,7 @@ namespace CleanCodeTestning.Models
 
         public MooCowGame()
         {
-            answer = GenerateAnswer();
+            GenerateAnswer();
         }
 
         public void IncrementGuess()
@@ -45,31 +46,32 @@ namespace CleanCodeTestning.Models
             return bbcc + "\n";
         }
 
-        static string GenerateAnswer()
+        static void GenerateAnswer()
         {
-            Random randomGenerator = new Random();
-            string answer = "";
+            Random rnd = new Random();
+            List<int> uniqueDigits = new();
+
             for (int i = 0; i < MaxLength; i++)
             {
-                int random = randomGenerator.Next(10);
-                string randomDigit = "" + random;
-                while (answer.Contains(randomDigit))
+                int rndDigit;
+                do
                 {
-                    random = randomGenerator.Next(10);
-                    randomDigit = "" + random;
-                }
-                answer = answer + randomDigit;
+                    rndDigit = rnd.Next(0, 10);
+
+                } while (uniqueDigits.Contains(rndDigit));
+
+                uniqueDigits.Add(rndDigit);
             }
-            return answer;
+
+            answer = string.Join("", uniqueDigits);
         }
 
         static string CheckGuess(string guess)
         {
             int cows = 0, bulls = 0;
-            guess += "    ";     // if player entered less than 4 chars
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < answer.Length; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < answer.Length; j++)
                 {
                     if (answer[i] == guess[j])
                     {

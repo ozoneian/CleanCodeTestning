@@ -37,9 +37,19 @@ namespace CleanCodeTestningTest
         {
             var playerData = new PlayerData("Kurt", 3);
 
-            var actual = playerData.Average();
+            var equalResult = playerData.Equals(new PlayerData("Kurt", 2));
 
-            Assert.That(3, Is.EqualTo(actual).Within(0.1));
+            Assert.That(equalResult, Is.True);
+        }
+
+        [Test]
+        public void GetHashCode_Should_Hash_On_Name()
+        {
+            var playerData = new PlayerData("Kurt", 3);
+
+            var result = playerData.GetHashCode();
+
+            Assert.That(result, Is.EqualTo(new PlayerData("Kurt", 2).GetHashCode()));
         }
     }
 }

@@ -8,7 +8,42 @@ using System.Threading.Tasks;
 namespace CleanCodeTestningTest
 {
     [TestFixture]
-    class MooCowGameTest
+    public class MooCowGameTest
     {
+        [Test]
+        public void ÏncrementGuess_Should_Increment_TotalGuesses_By_One()
+        {
+            
+        }
+
+        [Test]
+        public void CheckInput_Should()
+        {
+
+        }
+
+        [Test]
+        public void GetInstructions_Should()
+        {
+
+        }
+
+        [Test]
+        public void Output_Should()
+        {
+
+        }
+
+        [Test]
+        public void GenerateAnswer_Should()
+        {
+
+        }
+
+        [Test]
+        public void CheckGuess_Should()
+        {
+
+        }
     }
 }
