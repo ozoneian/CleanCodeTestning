@@ -28,6 +28,9 @@ namespace CleanCodeTestning
                         results[pos].Update(guesses);
                     }
                 }
+
+                results.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
+
                 return results;
             }
         }
@@ -36,7 +39,7 @@ namespace CleanCodeTestning
         {
             using (StreamWriter output = new StreamWriter(filePath, append: true))
             {
-                output.WriteLine(pd.Name + "," + pd.TotalGuess);
+                output.WriteLine(pd.Name + "," + pd.TotalGuesses);
             }
         }
     }

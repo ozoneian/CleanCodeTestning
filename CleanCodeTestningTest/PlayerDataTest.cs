@@ -1,0 +1,45 @@
+﻿using CleanCodeTestning;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CleanCodeTestningTest
+{
+    [TestFixture]
+    public class PlayerDataTest
+    {
+        [Test]
+        public void Update_Should_Add_Guesses_To_TotalGuesses_And_Increment_TotalGames_By_One()
+        {
+            var playerData = new PlayerData("Kurt", 3);
+
+            playerData.Update(2);
+
+            Assert.That(5, Is.EqualTo(playerData.TotalGuesses));
+            Assert.That(2, Is.EqualTo(playerData.TotalGames));
+        }
+
+        [Test]
+        public void Average_Should_Return_TotalGuesses_Divided_By_TotalGames()
+        {
+            var playerData = new PlayerData("Kurt", 3);
+
+            var actual = playerData.Average();
+
+            Assert.That(3, Is.EqualTo(actual).Within(0.1));
+        }
+
+        [Test]
+        public void Equals_Should_Check_Equality_On_Name()
+        {
+            var playerData = new PlayerData("Kurt", 3);
+
+            var actual = playerData.Average();
+
+            Assert.That(3, Is.EqualTo(actual).Within(0.1));
+        }
+    }
+}

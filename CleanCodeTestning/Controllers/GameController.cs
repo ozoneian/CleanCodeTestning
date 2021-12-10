@@ -54,10 +54,19 @@ namespace CleanCodeTestning.Controllers
 
         private void ShowScoreBoard()
         {
+            _ui.Clear();
+
             var results = _storeData.GetAllPlayerData(currentGame.FilePath);
-            
-            results.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
-            _ui.Output("Player   games average");
+
+            PrintHighscore(results);
+        }
+
+        private void PrintHighscore(List<PlayerData> results)
+        {
+            _ui.Output($"HighSore\n");
+
+            _ui.Output(string.Format("{0,-9}{1,5}{2,9:F2}\n", "Player", "Games", "Average"));
+
             foreach (PlayerData p in results)
             {
                 _ui.Output(string.Format("{0,-9}{1,5:D}{2,9:F2}", p.Name, p.TotalGames, p.Average()));

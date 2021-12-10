@@ -6,7 +6,7 @@ namespace CleanCodeTestning.Models
     internal class MooCowGame : IGame
     {
         int totalGuesses = 0;
-        string goal;
+        public static string answer;
         string bbcc;
         const int MaxLength = 4;
         
@@ -16,7 +16,7 @@ namespace CleanCodeTestning.Models
 
         public MooCowGame()
         {
-            goal = makeGoal();
+            answer = GenerateAnswer();
         }
 
         public void IncrementGuess()
@@ -26,7 +26,7 @@ namespace CleanCodeTestning.Models
 
         public bool CheckInput(string guess)
         {
-            bbcc = checkBC(goal, guess);
+            bbcc = CheckGuess(guess);
 
             if (bbcc == "BBBB,")
             {
@@ -37,7 +37,7 @@ namespace CleanCodeTestning.Models
 
         public string GetInstructions()
         {
-            return $"New game:\n\nFor practice, number is: {goal} \n";
+            return $"New game:\n\nFor practice, number is: {answer} \n";
         }
 
         public string Output()
@@ -45,25 +45,25 @@ namespace CleanCodeTestning.Models
             return bbcc + "\n";
         }
 
-        static string makeGoal()
+        static string GenerateAnswer()
         {
             Random randomGenerator = new Random();
-            string goal = "";
+            string answer = "";
             for (int i = 0; i < MaxLength; i++)
             {
                 int random = randomGenerator.Next(10);
                 string randomDigit = "" + random;
-                while (goal.Contains(randomDigit))
+                while (answer.Contains(randomDigit))
                 {
                     random = randomGenerator.Next(10);
                     randomDigit = "" + random;
                 }
-                goal = goal + randomDigit;
+                answer = answer + randomDigit;
             }
-            return goal;
+            return answer;
         }
 
-        static string checkBC(string goal, string guess)
+        static string CheckGuess(string guess)
         {
             int cows = 0, bulls = 0;
             guess += "    ";     // if player entered less than 4 chars
@@ -71,7 +71,7 @@ namespace CleanCodeTestning.Models
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if (goal[i] == guess[j])
+                    if (answer[i] == guess[j])
                     {
                         if (i == j)
                         {
