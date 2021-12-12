@@ -32,6 +32,21 @@ namespace CleanCodeTestning.Controllers
             PlayGame();
             SaveGame();
             ShowScoreBoard();
+            PlayAgain();
+        }
+
+        private void PlayAgain()
+        {
+            _ui.Output("\n\nWould you like to play again? Y/N");
+            var playAgain = _ui.Input();
+
+            if (playAgain.ToLower() == "y")
+            {
+                _ui.Clear();
+                Run();
+            }
+
+            _ui.Quit();
         }
 
         private void PlayGame()

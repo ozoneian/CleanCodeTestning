@@ -6,14 +6,12 @@ namespace CleanCodeTestning.Models
 {
     internal class MooCowGame : IGame
     {
-        int totalGuesses = 0;
         public static string answer;
         string bbcc;
         const int MaxLength = 4;
-        
         public string FilePath => "MooCowScore.csv";
 
-        public int GuessCount => totalGuesses;
+        public int GuessCount { get; private set; }
 
         public MooCowGame()
         {
@@ -22,18 +20,23 @@ namespace CleanCodeTestning.Models
 
         public void IncrementGuess()
         {
-            totalGuesses++;
+            GuessCount++;
         }
 
         public bool CheckInput(string guess)
         {
-            bbcc = CheckGuess(guess);
+            bbcc = CheckGuess(FormatInput(guess));
 
             if (bbcc == "BBBB,")
             {
                 return true;
             }
             return false;
+        }
+
+        private string FormatInput(string guess)
+        {
+            return (guess + "    ").Substring(0, 4);
         }
 
         public string GetInstructions()
@@ -86,6 +89,7 @@ namespace CleanCodeTestning.Models
                     }
                 }
             }
+
             return "BBBB".Substring(0, bulls) + "," + "CCCC".Substring(0, cows);
         }
     }
