@@ -1,9 +1,11 @@
 ﻿using NUnit.Framework;
+using CleanCodeTestning;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CleanCodeTestning.Models;
 
 namespace CleanCodeTestningTest
 {
@@ -11,9 +13,14 @@ namespace CleanCodeTestningTest
     public class MooCowGameTest
     {
         [Test]
-        public void ÏncrementGuess_Should_Increment_TotalGuesses_By_One()
+        public void ÏncrementGuess_Should_Increment_GuessCount_By_One()
         {
-            //var mooCow = new MooCowGame();
+            var mooCow = new MooCowGame();
+            Assert.That(0, Is.EqualTo(mooCow.GuessCount));
+
+            mooCow.IncrementGuess();
+
+            Assert.That(1, Is.EqualTo(mooCow.GuessCount));
         }
 
         [Test]

@@ -20,7 +20,7 @@ namespace CleanCodeTestningTest
         }
 
         [Test]
-        public void Update_Should_Add_Guesses_To_GuessCount_And_Increment_TotalGames_By_One()
+        public void Update_Should_Add_Guesses_To_TotalGuesses_And_Increment_TotalGames_By_One()
         {
             playerData.Update(2);
 
@@ -29,7 +29,7 @@ namespace CleanCodeTestningTest
         }
 
         [Test]
-        public void Average_Should_Return_GuessCount_Divided_By_TotalGames()
+        public void Average_Should_Return_TotalGuesses_Divided_By_TotalGames()
         {
             var actual = playerData.Average();
 
