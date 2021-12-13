@@ -1,9 +1,5 @@
 ﻿using CleanCodeTestning.Models.Helpers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanCodeTestning.Controllers
 {
@@ -62,7 +58,8 @@ namespace CleanCodeTestning.Controllers
                 if (currentGame.CheckInput(_ui.Input()))
                 {
                     playing = false;
-                    _ui.Output("You won");
+                    _ui.Output("You won\nPress any key to continue..");
+                    _ui.Input();
                 }
             }
         }
