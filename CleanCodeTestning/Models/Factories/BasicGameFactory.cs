@@ -20,11 +20,6 @@ namespace CleanCodeTestning.Models
             return games[name.ToLower()].Invoke();
         }
 
-        public IGame CreateMooCow()
-        {
-            return new MooCowGame();
-        }
-
         public override string ToString()
         {
             return string.Join("\n", games.Keys);

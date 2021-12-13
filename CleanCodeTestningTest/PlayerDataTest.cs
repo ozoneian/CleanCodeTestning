@@ -24,8 +24,8 @@ namespace CleanCodeTestningTest
         {
             playerData.Update(2);
 
-            Assert.That(5, Is.EqualTo(playerData.TotalGuesses));
-            Assert.That(2, Is.EqualTo(playerData.TotalGames));
+            Assert.That(playerData.TotalGuesses, Is.EqualTo(5));
+            Assert.That(playerData.TotalGames, Is.EqualTo(2));
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace CleanCodeTestningTest
         {
             var actual = playerData.Average();
 
-            Assert.That(3, Is.EqualTo(actual).Within(0.1));
+            Assert.That(actual, Is.EqualTo(3).Within(0.1));
         }
 
         [Test]

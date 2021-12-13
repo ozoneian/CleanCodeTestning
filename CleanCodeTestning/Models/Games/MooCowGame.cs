@@ -9,8 +9,8 @@ namespace CleanCodeTestning.Models
     internal class MooCowGame : IGame
     {
         public static string answer;
-        string bbcc;
-        const int MaxLength = 4;
+        internal string bbcc;
+        internal const int MaxLength = 4;
         public string FilePath => "MooCowScore.csv";
 
         public int GuessCount { get; private set; }
@@ -36,7 +36,7 @@ namespace CleanCodeTestning.Models
             return false;
         }
 
-        private string FormatInput(string guess)
+        internal string FormatInput(string guess)
         {
             return (guess + "    ").Substring(0, 4);
         }
@@ -51,7 +51,7 @@ namespace CleanCodeTestning.Models
             return bbcc + "\n";
         }
 
-        static void GenerateAnswer()
+        internal static void GenerateAnswer()
         {
             Random rnd = new Random();
             List<int> uniqueDigits = new();
@@ -71,7 +71,7 @@ namespace CleanCodeTestning.Models
             answer = string.Join("", uniqueDigits);
         }
 
-        static string CheckGuess(string guess)
+        internal static string CheckGuess(string guess)
         {
             int cows = 0, bulls = 0;
             for (int i = 0; i < answer.Length; i++)
